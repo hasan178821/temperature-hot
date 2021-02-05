@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input id="searchInput" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button id="searchButton" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="weather-status text-white text-center">
+            <img id="weatherIcon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="countryName">Chittagong</h1>
+            <h3><span id="temparatureSituation">38.06</span>&deg;C</h3>
+            <h1 id="describe" class="lead">Clouds</h1>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        document.getElementById("searchButton").addEventListener("click", function() {
+            fetch('http://api.openweathermap.org/data/2.5/weather?q=' + searchInput.value + '&APPID=9d94b4d24d109a00ddac9d077f925c2e')
+                .then(res => res.json())
+                .then(data => {
+                    const city = data.name;
+                    document.getElementById("countryName").innerText = city;
+
+                    const temparature = data.main.temp;
+                    document.getElementById("temparatureSituation").innerText = Math.round(temparature - 273);
+
+                    const description = data.weather[0].description;
+                    document.getElementById("describe").innerText = description;
+
+                    // const icon = 'http: //openweathermap.org/img/wn/+icon+.png';
+                    // document.getElementById("weatherIcon").setAttribute('src', 'icon')
+                    // console.log(data.weather[0].icon)
+                })
+        })
+    </script>
+
+</body>
+
+</html>
