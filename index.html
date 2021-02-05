@@ -29,7 +29,7 @@
             </div>
         </form>
         <div class="weather-status text-white text-center">
-            <img id="weatherIcon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <img id="weatherIcon" src="http://openweathermap.org/img/wn/02d.png" alt="">
             <h1 id="countryName">Chittagong</h1>
             <h3><span id="temparatureSituation">38.06</span>&deg;C</h3>
             <h1 id="describe" class="lead">Clouds</h1>
@@ -53,9 +53,13 @@
                     const description = data.weather[0].description;
                     document.getElementById("describe").innerText = description;
 
-                    // const icon = 'http: //openweathermap.org/img/wn/+icon+.png';
-                    // document.getElementById("weatherIcon").setAttribute('src', 'icon')
-                    // console.log(data.weather[0].icon)
+
+                    const icon = data.weather[0].icon;
+                    document.getElementById("weatherIcon").innerHTML = icon;
+                    // weatherIcons.src.setAttributeNode("src", icon);
+
+
+
                 })
         })
     </script>
