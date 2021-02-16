@@ -15,6 +15,11 @@
             background-size: cover;
             height: 100vh;
         }
+        
+        #iconsApi {
+            width: 100px;
+            height: 100px;
+        }
     </style>
 </head>
 
@@ -28,8 +33,8 @@
                 </div>
             </div>
         </form>
-        <div class="weather-status text-white text-center">
-            <img id="weatherIcon" src="http://openweathermap.org/img/wn/02d.png" alt="">
+        <div id="weatherStatus" class="weather-status text-white text-center">
+            <img id="iconsApi" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
             <h1 id="countryName">Chittagong</h1>
             <h3><span id="temparatureSituation">38.06</span>&deg;C</h3>
             <h1 id="describe" class="lead">Clouds</h1>
@@ -41,27 +46,29 @@
 
     <script>
         document.getElementById("searchButton").addEventListener("click", function() {
-            fetch('http://api.openweathermap.org/data/2.5/weather?q=' + searchInput.value + '&APPID=9d94b4d24d109a00ddac9d077f925c2e')
-                .then(res => res.json())
-                .then(data => {
-                    const city = data.name;
-                    document.getElementById("countryName").innerText = city;
+                fetch('http://api.openweathermap.org/data/2.5/weather?q=' + searchInput.value + '&APPID=9d94b4d24d109a00ddac9d077f925c2e')
+                    .then(res => res.json())
+                    .then(data => {
+                        const city = data.name;
+                        document.getElementById("countryName").innerText = city;
 
-                    const temparature = data.main.temp;
-                    document.getElementById("temparatureSituation").innerText = Math.round(temparature - 273);
+                        const temparature = data.main.temp;
+                        document.getElementById("temparatureSituation").innerText = Math.round(temparature - 273);
 
-                    const description = data.weather[0].description;
-                    document.getElementById("describe").innerText = description;
+                        const description = data.weather[0].description;
+                        document.getElementById("describe").innerText = description;
 
+                        const icons = data.weather[0].icon;
+                        document.getElementById('iconsApi').src = `http://openweathermap.org/img/wn/${icons}.png`;
 
-                    const icon = data.weather[0].icon;
-                    document.getElementById("weatherIcon").innerHTML = icon;
-                    // weatherIcons.src.setAttributeNode("src", icon);
+                        // alternative find from group
+                        // const icon = document.getElementById("iconsApi");
+                        // const iconImage = data.weather[0].icon;
+                        // icon.src = `http://openweathermap.org/img/w/${iconImage}.png`
 
-
-
-                })
-        })
+                    })
+            })
+            //Updated Successfully
     </script>
 
 </body>
